@@ -1,0 +1,21 @@
+
+## GIT COMPLETION AND PROMPT
+#source ~/.git-completion.sh
+#PS1='\n[\u@\h] \[\033[1;33m\]\w\a\[\033[0m\]$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")'
+
+## RVM
+source ~/.rvm/scripts/rvm
+source ~/.rvm/scripts/completion
+PS1="$PS1 \e[0;32m\]\$(~/.rvm/bin/rvm-prompt)\e[m"
+PS1="$PS1\n\$ "
+
+## RAKE COMPLETION
+complete -C ~/bin/rake_completion -o default rake
+
+## BASH COMPLETION
+if [ -f /opt/local/etc/bash_completion ]; then
+    . /opt/local/etc/bash_completion
+fi
+
+source $HOME/.amazon_keys
+

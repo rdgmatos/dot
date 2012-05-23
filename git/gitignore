@@ -1,0 +1,15 @@
+coverage
+test.sqlite3
+doc
+pkg/*
+.tmtags
+tmtags
+tags
+*~
+*.swp
+.rvmrc
+*.sqlite3
+log
+*.log
+.DS_Store
+reports/

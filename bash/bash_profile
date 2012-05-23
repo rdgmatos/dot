@@ -1,0 +1,28 @@
+PATH=~/bin:$PATH
+PATH=/usr/local/bin:/usr/local/sbin:$PATH
+PATH=$PATH:/usr/bin:/usr/sbin:/bin:/sbin:/usr/X11/bin
+PATH=~/.cabal/bin:$PATH
+
+export HISTCONTROL=erasedups
+export GREP_OPTIONS="--color=auto"
+export GREP_COLOR="4;33"
+export CLICOLOR="auto"
+export EDITOR="vim"
+
+alias home="cd ~/"
+alias src="/usr/local/src"
+
+alias reload='. ~/.bash_profile'
+alias ls='ls -Gph'
+alias ll='ls -Gplh'
+alias la='ls -Gplah'
+alias df='df -h'
+alias du='du -h'
+alias ag='alias | grep' 
+alias pg='ps -ef | grep'
+alias hosts='cat /etc/hosts'
+alias ehosts='vim /etc/hosts'
+
+alias ..="\cd .. ; ls"
+alias cd..="\cd .. ; ls"
+

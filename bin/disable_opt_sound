@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+amixer set IEC958 off
+
