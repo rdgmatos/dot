@@ -9,6 +9,8 @@ use strict;
 use Irssi;
 use vars qw($VERSION %IRSSI);
 use HTML::Entities;
+use English qw' -no_match_vars ';
+use Config;
 
 $VERSION = "0.01";
 %IRSSI = (
@@ -36,11 +38,17 @@ sub notify {
     $summary = sanitize($summary);
     $message = sanitize($message);
 
-    my $cmd = "EXEC - notify-send" .
-	" -i " . Irssi::settings_get_str('notify_icon') .
-	" -t " . Irssi::settings_get_str('notify_time') .
-	" -- '" . $summary . "'" .
-	" '" . $message . "'";
+    my $cmd = "EXEC - ";
+    if ($Config{osname} =~ /linux/) {
+      $cmd += "notify-send" .
+      " -i " . Irssi::settings_get_str('notify_icon') .
+      " -t " . Irssi::settings_get_str('notify_time');
+    } else {
+      $cmd += "growly";
+    }
+
+    $cmd += " -- '" . $summary . "'" .
+            " '"    . $message . "'";
 
     $server->command($cmd);
 }
