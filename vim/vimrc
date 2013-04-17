@@ -26,19 +26,20 @@ set viewdir=/tmp
 set nocompatible "We're running Vim, not Vi!
 set nobackup
 set nowritebackup
-" set backupdir=/private/tmp " tell vim where to put its backup files 
-" set dir=/private/tmp " tell vim where to put swap files 
-"
+" set backupdir=/private/tmp " tell vim where to put its backup files
+" set dir=/private/tmp " tell vim where to put swap files
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
+
+set shell=/bin/zsh
+set autowrite  " Writes on make/shell commands
 
 set novisualbell  " No blinking .
 set noerrorbells  " No noise.
 set cf  " Enable error files & error jumping.
 set clipboard+=unnamed  " Yanks go on clipboard instead.
 set history=256  " Number of things to remember in history.
-set autowrite  " Writes on make/shell commands
 set ruler  " Ruler on (show the cursor position all the time)
 set nu  " Line numbers on
 set wrap  " Line wrapping on
@@ -46,9 +47,9 @@ set timeoutlen=250  " Time to wait after ESC (default causes an annoying delay)
 
 set path=$PWD/public/**,$PWD/**
 set sessionoptions=blank,buffers,curdir,folds,help,resize,tabpages,winsize
-set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n%Y%)\%P
+"set statusline=%<%f\ %h%m%r%=%-20.(line=%l,col=%c%V,totlin=%L%)\%h%m%r%=%-40(,%n%Y%)\%P
 set laststatus=2  " Always show status line.
-set cursorline " highlight the current line in every window and update the highlight as the cursor moves. 
+set cursorline " highlight the current line in every window and update the highlight as the cursor moves.
 
 "folding settings
 if has("folding")
@@ -65,16 +66,16 @@ set wildignore=*.o,*.obj,*~,*.pyc,*.class "stuff to ignore when tab completing
 set scrolloff=3
 set sidescrolloff=7
 set sidescroll=1
- 
+
 " Formatting (some of these are for coding in C and C++)
 set softtabstop=2
 set tabstop=8
-set ts=2  
+set ts=2
 set bs=2  " Backspace over everything in insert mode
 set shiftwidth=2  " Tabs under smart indent
 set incsearch " do incremental searching
 
-set nocp 
+set nocp
 set cinoptions=:0,p0,t0
 set cinwords=if,else,while,do,for,switch,case
 set formatoptions=tcqr
@@ -83,76 +84,56 @@ set autoindent " always set autoindenting on
 set smarttab
 set expandtab
 
-" Visual
-set showmatch  " Show matching brackets.
-set mat=5  " Bracket blinking.
-set list
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
 endif
 
-" Show $ at end of line and trailing space as ~
-set lcs=tab:\ \ ,extends:>,precedes:<
-
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-  filetype plugin indent on " Enable filetype-specific indenting and plugins
-  autocmd FileType c set omnifunc=ccomplete#Complete
-  autocmd FileType c,cpp,java,javascript,python,xml,xhtml,html set shiftwidth=2
-  autocmd FileType python set omnifunc=pythoncomplete#Complete
-  autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-  autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType xml set formatprg=xmlstarlet\ fo
-  autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-  autocmd FileType ruby set omnifunc=rubycomplete#Complete
-  autocmd FileType ruby,perl,tex,groovy set shiftwidth=2
-  autocmd FileType ruby,yaml set ai sw=2 sts=2 et
-  augroup filetypedetect
-    au BufNewFile,BufRead *.vcl set filetype=c
-    autocmd BufNewFile,BufRead *.yml set filetype=ruby
-  augroup END
+
+  " Enable filetype-specific indenting and plugins
+  filetype plugin indent on
+
   "jump to last cursor position when opening a file
   "dont do it when writing a commit log entry
   autocmd BufReadPost * call SetCursorPosition()
+
+  " Removes trailing spaces when saving the buffer
+  autocmd BufWritePre * :%s/\s\+$//e
+
+  augroup filetypedetect
+    au! BufNewFile,BufRead *.ch setf cheat
+    autocmd BufNewFile,BufRead *.yml setf eruby
+    autocmd BufRead,BufNewFile Guardfile set filetype=ruby
+    autocmd BufNewFile,BufRead *.clj set filetype=clojure
+  augroup END
+
+  autocmd FileType ruby,perl,tex set shiftwidth=2
+  autocmd FileType c,cpp,java,javascript,python,xml,xhtml,html set shiftwidth=2
+  autocmd FileType javascript set shiftwidth=2
 endif
 
-" Don't use Ex mode, use Q for formatting
-"map Q to something useful
-noremap Q gq
+"Load plugins using pathogen.vim
+call pathogen#infect()
+
+"Change tabs
+nmap <Tab> gt
+nmap <S-Tab> gT
+
+"Current path
+cmap <C-e> <C-r>=expand('%:p:h')<CR>/
 
 "Toggle Project tree
 nmap <silent> <Leader>p :NERDTreeToggle<CR>
 
-"Search files
-nmap <silent> <Leader>i :FufFile **/<CR>
-
 "Open buffer of alredy opened files
-nmap <silent> <Leader>o :FufBuffer<CR>
+nmap <silent> <Leader>o :CtrlPBuffer<CR>
 
-"make <c-l> clear the highlight as well as redraw
-nnoremap <C-L> :nohls<CR><C-L>
-inoremap <C-L> <C-O>:nohls<CR>
-
-"make Y consistent with C and D
-nnoremap Y y$
-
-" CTRL-T and CTRL-D indent and unindent blocks
-inoremap <C-D> <C-O><LT><LT>
-nnoremap <C-D> <LT><LT>
-vnoremap <C-T> >
-vnoremap <C-D> <LT>
-
-map <C-M> ,c<space>
-map <C-q> :mksession! ~/.vim/.session <cr>
-map <C-//> map ,# :s/^/#/<CR>
-map <S-//> :s/^\/\/\\|^--\\|^> \\|^[#"%!;]//<CR><Esc>:nohlsearch<CR>
-
-imap <M-Up> :tabn<CR>
-imap <M-Down> :tabp<CR>
-imap <c-s> <esc><c-s>
+"Ctrl-P
+let g:ctrlp_dotfiles = 0
+let g:ctrlp_map = '<leader>i'
+let g:ctrlp_custom_ignore = {'file': '\.git$\|\.hg$\|\.svn$\|DS_Store', 'dir': 'coverage', 'link': '',}
 
 function! SetCursorPosition()
     if &filetype !~ 'commit\c'
@@ -162,26 +143,18 @@ function! SetCursorPosition()
     end
 endfunction
 
-"define :Lorem command to dump in a paragraph of lorem ipsum
-command! -nargs=0 Lorem :normal iLorem ipsum dolor sit amet, consectetur
-      \ adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      \ magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-      \ ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-      \ irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-      \ fugiat nulla pariatur.  Excepteur sint occaecat cupidatat non
-      \ proident, sunt in culpa qui officia deserunt mollit anim id est
-      \ laborum
+command! -nargs=0 Rdebugger :normal irequire "debugger"; debugger
 
-"define :HighlightExcessColumns command to highlight the offending parts of
-"lines that are "too long". where "too long" is defined by &textwidth or an
-"arg passed to the command
-command! -nargs=? HighlightExcessColumns call s:HighlightExcessColumns('<args>')
-function! s:HighlightExcessColumns(width)
-    let targetWidth = a:width != '' ? a:width : &textwidth
-    if targetWidth > 0
-        exec 'match Todo /\%>' . (targetWidth+1) . 'v/'
-    else
-        echomsg "HighlightExcessColumns: set a &textwidth, or pass one in"
-    endif
-endfunction
+" Visual
+"set showmatch  " Show matching brackets.
+"set mat=5  " Bracket blinking.
+"set list
+
+"make <c-l> clear the highlight as well as redraw
+"nnoremap <C-L> :nohls<CR><C-L>
+"inoremap <C-L> <C-O>:nohls<CR>
+
+" Don't use Ex mode, use Q for formatting
+"map Q to something useful
+"noremap Q gq
 
