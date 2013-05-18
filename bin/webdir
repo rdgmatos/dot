@@ -1,8 +1,8 @@
-#!/usr/bin/env ruby
+import SimpleHTTPServer
+import SocketServer
 
-require 'sinatra'
-require 'pathname'
-
-dir = Pathname.new File.expand_path(ARGV[0] || ENV['PWD'], __FILE__) 
-set :public_folder, dir.realpath
+PORT = 8000
+Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+httpd = SocketServer.TCPServer(("", PORT), Handler)
+httpd.serve_forever()
 
