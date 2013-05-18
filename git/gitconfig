@@ -4,6 +4,8 @@
   diff   = auto
   status = auto
   branch = auto
+[push]
+  default = current
 [alias]
   st = status -s
   ci = commit
@@ -27,3 +29,5 @@
 [core]
   editor = vim
 	excludesfile = ~/.gitignore
+[pull]
+	rebase = true
