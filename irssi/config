@@ -198,5 +198,6 @@ settings = {
     user_name = "pahagon";
     nick = "pahagon";
   };
+  dcc_download_path = "~/Downloads/";
   "fe-text" = { actlist_sort = "refnum"; };
 };
