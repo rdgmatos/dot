@@ -71,6 +71,9 @@ set autoindent " always set autoindenting on
 set smarttab
 set expandtab
 
+"make Y consistent with C and D
+nnoremap Y y$
+
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
   "jump to last cursor position when opening a file
