@@ -48,7 +48,7 @@ set cursorline " highlight the current line in every window and update the highl
 
 set wildmode=list:longest   "make cmdline tab completion similar to bash
 set wildmenu                "enable ctrl-n and ctrl-p to scroll thru matches
-set wildignore=*.o,*.obj,*~,*.pyc,*.class,*/tmp/*,*.so,*.swp,*.zip "stuff to ignore when tab completing
+set wildignore=*.o,*.obj,*~,*.pyc,*.class,*/tmp/*,*.so,*.swp,*.zip,*.gif,*.jpeg,*.jpg,*.png "stuff to ignore when tab completing
 
 "vertical/horizontal scroll off settings
 set scrolloff=3
