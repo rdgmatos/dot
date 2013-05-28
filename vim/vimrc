@@ -152,8 +152,8 @@ endfunction
 command! -nargs=0 Rdebugger :normal irequire "debugger"; debugger
 
 " Visual
-"set showmatch  " Show matching brackets.
-"set mat=5  " Bracket blinking.
+set showmatch  " Show matching brackets.
+set mat=5  " Bracket blinking.
 "set list
 
 "make <c-l> clear the highlight as well as redraw
