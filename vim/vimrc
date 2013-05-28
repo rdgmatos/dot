@@ -1,3 +1,6 @@
+" Enable filetype-specific indenting and plugins
+filetype plugin indent on
+
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if &t_Co > 2 || has("gui_running")
@@ -71,10 +74,6 @@ set expandtab
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-
-  " Enable filetype-specific indenting and plugins
-  filetype plugin indent on
-
   "jump to last cursor position when opening a file
   "dont do it when writing a commit log entry
   autocmd BufReadPost * call SetCursorPosition()
