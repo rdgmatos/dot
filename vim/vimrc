@@ -22,7 +22,7 @@ set nowritebackup
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-set shell=/bin/zsh
+set shell=$SHELL
 set autowrite " Writes on make/shell commands
 
 colorscheme lanai
