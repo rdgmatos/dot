@@ -94,7 +94,8 @@ endif
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
-  set mouse=a
+  set mousehide  " Hide mouse after chars typed
+  set mouse=a "use in all modes
 endif
 
 "folding settings
