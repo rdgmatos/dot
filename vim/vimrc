@@ -113,8 +113,8 @@ if has("gui_running")
 
   if has("gui_mac") || has("gui_macvim")
     set guifont=Monaco:h10
-      " make Mac's Option key behave as the Meta key
-      set invmmta
+    " make Mac's Option key behave as the Meta key
+    set invmmta
   endif
 endif
 
