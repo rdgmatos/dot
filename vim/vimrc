@@ -37,7 +37,7 @@ set clipboard+=unnamed " Yanks go on clipboard instead.
 set history=256 " Number of things to remember in history.
 set ruler " Ruler on (show the cursor position all the time)
 set nu " Line numbers on
-set wrap " Line wrapping on
+set nowrap " Line wrapping off
 set timeoutlen=250 " Time to wait after ESC (default causes an annoying delay)
 
 set path=$PWD/public/**,$PWD/**
