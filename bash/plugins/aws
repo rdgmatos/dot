@@ -1,0 +1,56 @@
+ssh-ec2-by-tag()
+{
+  ssh $(ec2-describe-instances -F "tag:Name=$1" | grep "amazonaws.com" | awk '{ print $4 }')
+}
+
+aws_account_name()
+{
+  if [[ ! -z "$AWS_ACCOUNT_NAME" ]]; then
+    echo $AWS_ACCOUNT_NAME
+  fi
+}
+
+export_aws_base()
+{
+  export EC2_REGION=${EC2_REGION:-"sa-east-1"}
+  export EC2_HOME="/usr/local/Cellar/ec2-api-tools/1.5.2.5/jars"
+  export EC2_URL="https://ec2.$EC2_REGION.amazonaws.com"
+  export AWS_HOME_CREDENTIALS="$HOME/.ec2/"
+  export AWS_CLOUDFORMATION_HOME="/usr/local/Cellar/aws-cfn-tools/1.0.9/jars"
+}
+
+export_aws_baby_prd()
+{
+  export_aws_base
+  export AWS_BABY_HOME_CREDENTIALS="$AWS_HOME_CREDENTIALS/baby/prd"
+  export AWS_ACCESS_KEY_ID=$(cat $AWS_BABY_HOME_CREDENTIALS/AWSAccessKeyId.txt)
+  export AWS_SECRET_ACCESS_KEY=$(cat $AWS_BABY_HOME_CREDENTIALS/AWSSecretKey.txt)
+  export AWS_ACCOUNT_NAME="aws:baby-PRD"
+}
+
+export_aws_baby()
+{
+  export_aws_base
+  export AWS_BABY_HOME_CREDENTIALS="$AWS_HOME_CREDENTIALS/baby"
+  export EC2_PRIVATE_KEY="$AWS_BABY_HOME_CREDENTIALS/pk-aws-pahagon.key"
+  export EC2_CERT="$AWS_BABY_HOME_CREDENTIALS/aws-pahagon.crt"
+  export AWS_CREDENTIAL_FILE="$AWS_BABY_HOME_CREDENTIALS/AWSCredentials.txt"
+  export AWS_ACCESS_KEY_ID=$(cat $AWS_BABY_HOME_CREDENTIALS/AWSAccessKeyId.txt)
+  export AWS_SECRET_ACCESS_KEY=$(cat $AWS_BABY_HOME_CREDENTIALS/AWSSecretKey.txt)
+  export AWS_ACCOUNT_NAME="aws:baby-DEV"
+}
+
+export_aws_blue()
+{
+  export_aws_base
+  export AWS_CREDENTIAL_FILE="$AWS_HOME_CREDENTIALS/blue/AWSCredentials.txt"
+  export AWS_ACCOUNT_NAME="aws:blue"
+}
+
+export_aws_pahagon()
+{
+  export_aws_base
+  export AWS_CREDENTIAL_FILE="$AWS_HOME_CREDENTIALS/pahagon/AWSCredentials.txt"
+  export AWS_ACCOUNT_NAME="aws:pahagon"
+}
+

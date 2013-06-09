@@ -1,0 +1,11 @@
+#export LS_COLORS="di=34;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=31;40:cd=31;40:su=31;40:sg=31;40:tw=31;40:ow=31;40:"
+PS1="\[$fg_bold_red\]➜ "
+PS1="$PS1\[$fg_bold_grey\]|\\u@\\H| "
+PS1="$PS1\[$fg_bold_yellow\](\\j) "
+PS1="$PS1\[$fg_bold_grey\][\$(rvm-prompt)] "
+PS1="$PS1\[$fg_cyan\]\\w "
+PS1="$PS1\[$fg_bold_blue\]\$(git_prompt_info)$nocolors"
+PS1="$PS1\$(git_prompt_status)$nocolors"
+PS1="$PS1\[$fg_bold_red\]\$(aws_account_name)$nocolors"
+PS1="$PS1\\n\[$fg_bold_yellow\]\$\[$nocolors\] "
+#export PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'

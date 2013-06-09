@@ -1,0 +1,5 @@
+for i in $(find /usr/local/Cellar -name bin)
+do
+  PATH=$i:$PATH
+done
+
