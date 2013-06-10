@@ -1,0 +1,8 @@
+alias ..="cd .."
+alias ...=".. && .. "
+alias psg="ps -ef | grep -v grep | grep"
+alias reload=". ~/.bashrc"
+alias grep="grep --color"
+alias ls="ls -G"
+alias la="ls -Glahs"
+
