@@ -15,9 +15,9 @@ do
   [ -f "$f" -a -r "$f" ] && . $f
 done
 
-for d in "$HOME"/.bash.d/bin/**/
+for b in $bash_root_dir/bin/* $bash_root_dir/bin/**/*
 do
-  export PATH="$PATH:$d"
+  [ -f "$b" -a -r "$b" ] && . export PATH="$PATH:$b"
 done
 
 . $bash_root_dir/themes/default.theme
