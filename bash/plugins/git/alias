@@ -1,0 +1,8 @@
+alias gst='git status'
+alias gfetch='git fetch'
+alias gpull='git pull'
+alias gpush='git push'
+alias gbranch='git branch'
+alias gco='git checkout'
+alias gcob='git checkout -b'
+alias gmerge='git merge'
