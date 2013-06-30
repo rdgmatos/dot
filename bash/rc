@@ -7,10 +7,9 @@ shopt -s globstar
 shopt -s checkjobs
 shopt -s checkwinsize
 
-#bash_root_dir="$( cd "$( dirname "${BASH_SOURCE[1]}" )" && pwd )"
 bash_root_dir=~/dot/bash
 
-for f in $bash_root_dir/lib/* $bash_root_dir/lib/**/* $bash_root_dir/plugins/* $bash_root_dir/plugins/**/*
+for f in $bash_root_dir/lib/**/* $bash_root_dir/plugins/**/*
 do
   [ -f "$f" -a -r "$f" ] && . $f
 done
